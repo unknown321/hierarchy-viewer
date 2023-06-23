@@ -9,7 +9,7 @@ Has search field.
 
 Poor performance, ineffective algo, still works.
 
-Example usage:
+#### Usage:
 
 ```shell
 $ find /etc/systemd/ -type f | ./tree.py
@@ -26,6 +26,6 @@ $ cat /tmp/1
 ./tree.py /tmp/1
 ```
 
-Screenshots:
+#### Screenshots:
 
 ![screen](./doc/screen.png)
