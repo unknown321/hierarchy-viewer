@@ -11,7 +11,8 @@ def search_text(tree: ttk.Treeview, query: str, item: str, found: set):
     for child in children:
         text = tree.item(child, "text")
         if query in text.lower():
-            found.add(child)
+            if len(tree.get_children(child)) == 0:
+                found.add(child)
         search_text(tree, query, item=child, found=found)
 
 
