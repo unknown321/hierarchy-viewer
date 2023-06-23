@@ -5,6 +5,8 @@ Displays interactive hierarchy tree of your input.
 
 Accepts stdin or file. Expects path-like strings, members must be separated by slashes (`/root/1/2/3`)
 
+Has search field.
+
 Poor performance, ineffective algo, still works.
 
 Example usage:
