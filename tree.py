@@ -162,7 +162,10 @@ class TreeViewWithFilter(tk.Tk):
             return
 
         for item in self._show:
-            self.tree.see(item)
+            if len(query) == 0:
+                self.tree.item(item, open=False)
+            else:
+                self.tree.see(item)
 
         self.tree.yview_moveto(0)
 
