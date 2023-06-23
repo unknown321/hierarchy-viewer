@@ -26,4 +26,4 @@ $ cat /tmp/1
 
 Screenshots:
 
-![screen1](./doc/screen1.png) ![screen2](./doc/screen2.png)
+![screen](./doc/screen.png)
