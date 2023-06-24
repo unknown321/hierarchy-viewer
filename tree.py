@@ -72,6 +72,9 @@ def prepare_input(filename):
 
 
 class TreeViewWithFilter(tk.Tk):
+    separator = "::"
+    append_root = False
+
     def __init__(self, args):
         super().__init__()
 
@@ -81,8 +84,9 @@ class TreeViewWithFilter(tk.Tk):
 
         self.title("Hierarchy View - {}".format(filename))
         self.geometry("800x600")
-        self.rowconfigure(1, weight=1)
         self.rowconfigure(0, weight=0)
+        self.rowconfigure(1, weight=100)
+        self.rowconfigure(2, weight=0)
         self.columnconfigure(0, weight=1)
         self.columnconfigure(1, weight=100)
 
@@ -94,15 +98,38 @@ class TreeViewWithFilter(tk.Tk):
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         tree.configure(yscrollcommand=scrollbar.set)
 
+        tree.bind('<ButtonRelease-1>', self._display_path)
+        tree.bind('<KeyRelease>', self._display_path)
+
         self.tree = tree
         self._to_search = tk.StringVar()
         self._set_search_entry()
+
+        self._current_path = tk.StringVar()
+        self._set_path_label()
         d = prepare_input(args)
         for k, v in d.items():
             self.to_tree(k, v)
 
         for item in self.tree.get_children():
             add_children(self.tree, item, parent_index=item, add_to=self._all)
+
+    def _display_path(self, event):
+        text = []
+        item = self.tree.focus()
+        text.append(self.tree.item(item, 'text').rstrip('\n'))
+        while item != "":
+            item = self.tree.parent(item)
+            text.append(self.tree.item(item, 'text').rstrip('\n'))
+
+        result = self.separator.join(reversed(text))
+        if not self.append_root:
+            result.lstrip(self.separator)
+        self._current_path.set(result)
+
+    def _set_path_label(self):
+        label = ttk.Label(self, textvariable=self._current_path)
+        label.grid(row=2, column=0)
 
     def _set_search_entry(self):
         label = ttk.Label(self, text="Search:")
