@@ -73,7 +73,7 @@ def prepare_input(filename):
 
 class TreeViewWithFilter(tk.Tk):
     separator = "::"
-    append_root = False
+    hide_root_separator = True
 
     def __init__(self, args):
         super().__init__()
@@ -123,8 +123,8 @@ class TreeViewWithFilter(tk.Tk):
             text.append(self.tree.item(item, 'text').rstrip('\n'))
 
         result = self.separator.join(reversed(text))
-        if not self.append_root:
-            result.lstrip(self.separator)
+        if self.hide_root_separator:
+            result = result.lstrip(self.separator)
         self._current_path.set(result)
 
     def _set_path_label(self):
