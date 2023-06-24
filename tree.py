@@ -129,7 +129,7 @@ class TreeViewWithFilter(tk.Tk):
 
     def _set_path_label(self):
         label = ttk.Label(self, textvariable=self._current_path)
-        label.grid(row=2, column=0)
+        label.grid(row=2, columnspan=2, sticky=tk.W + tk.E)
 
     def _set_search_entry(self):
         label = ttk.Label(self, text="Search:")
